@@ -15,7 +15,6 @@ RUN addgroup --system xusers \
 
 # Install packages required for connecting against X Server
 RUN apt-get update && apt-get install -y --no-install-recommends \
-				curl \
 				xauth \
 		&& rm -rf /var/lib/apt/lists/*
 
