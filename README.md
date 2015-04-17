@@ -1,11 +1,12 @@
 ##About
 Base Image which can be used to create an image containing an application requiring an X Window Server. When used in conjunction with `suchja/x11-services` the graphical output can be seen via VNC on any computer accessing the containers.
 
-In contrast to several existing solution the focus here is on a strict separation of concerns. This keeps the images small and focused on exactly one task. 
+In contrast to several existing solution the focus here is on a strict separation of concerns. This keeps the images small and focused on exactly one task. Therefore there is no X Window client application installed in this image.
+
+More details can be found [here](https://github.com/suchja/x11server/blob/master/Story.md).
 
 ##Usage
-
-**ATTENTION:** This image is currently under development. Especially security is not considered. So please be aware of this when using it. When development is completed, passwords and other security aspects will be documented here.
+Use this image in your Dockerfile's `FROM` statement, if you like to create an image running an xclient application like Wine or Firefox.
 
 ###Environment Variables
 When you run a container based on the `x11-client` image, you should adjust at least some of its configuration.
