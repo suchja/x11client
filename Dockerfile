@@ -17,7 +17,6 @@ RUN addgroup --system xusers \
 RUN apt-get update && apt-get install -y --no-install-recommends \
 				curl \
 				xauth \
-				x11-apps \
 		&& rm -rf /var/lib/apt/lists/*
 
 # Before switching user, root needs to ensure that entrypoint can be executed.
