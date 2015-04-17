@@ -12,7 +12,7 @@ Even though this image is intended as base image, you can run a container from i
 
 `docker run -d --name display -e VNC_PASSWORD=newPW -p 5900:5900 suchja/x11server`
 
-You can start a x11client container like so:
+You can start a x11client container like this:
 
 `docker run --rm -it --link display:xserver --volumes-from display suchja/x11client /bin/bash`
 
@@ -22,10 +22,17 @@ This however does not make too much sense, because this image does not contain a
 
 **ATTENTION #2:** When linking a container based on this image to [suchja/x11server](https://registry.hub.docker.com/u/suchja/x11server/) the `alias` must be set to **xserver**. If another alias is used, authentication between x11client and x11server will not work. Thus it is not possible for the client to connect to the server!
 
+###Authentication with Magic Cookie on X11 server
+This image uses [X Window Authority](http://en.wikipedia.org/wiki/X_Window_authorization) with MIT Magic Cookies. Therefore a container started from [suchja/x11server](https://registry.hub.docker.com/u/suchja/x11server/) will create such a cookie, provide it as file on a volume and authenticates clients with it.
+
+When starting a container from this x11client image, the `/entrypoint.sh` script reads the magic cookie from the server volume and set's it as default cookie for the client user. That means only the xclient user is able to establish connections to the x11server out of the box.
+
+If you use x11client as a base image and like to create and use another user than xclient, you should run the `/entrypoint.sh` script again as the newly created user.
+
 ##Maintenance
 The image is build on Docker hub with [Automated builds](http://docs.docker.com/docker-hub/builds/). There is no dedicated maintenance schedule for this image. It is relying on packages from `debian:jessie` and thus I do not assume to update it frequently.
 
 In case you have any issues, you are invited to create a pull request or an issue on the related [github repository](https://github.com/suchja/x11client).
 
 ##Copyright free
-The sources in [this](https://github.com/suchja/x11-client.git) Github repository, from which the docker image is build, are copyright free (see LICENSE.md). Thus you are allowed to use these sources (e.g. Dockerfile and README.md) in which ever way you like.
+The sources in [this](https://github.com/suchja/x11client) Github repository, from which the docker image is build, are copyright free (see LICENSE.md). Thus you are allowed to use these sources (e.g. Dockerfile and README.md) in which ever way you like.
