@@ -1,14 +1,32 @@
 ##About
-Base Image which can be used to create an image containing an application requiring an X Window Server. When used in conjunction with [suchja/x11server](https://registry.hub.docker.com/u/suchja/x11server/) the graphical output can be seen via VNC on any computer accessing the containers.
+Have you got the need to run an X11 application inside a docker container? I did (for example [here](https://registry.hub.docker.com/u/suchja/wine/)). It was pretty annoying to have a dockerfile which setups X11 server, maps sockets and finally prepares the application I'm interested in. And what happens, if the machine running your container does not even have a display? Read more about the background [here](https://github.com/suchja/x11server/blob/master/Story.md).
+
+This image in combination with [suchja/x11server](https://registry.hub.docker.com/u/suchja/x11server/) gives you the possibility to run a X11 application on any machine you like and get the display on the same or any other machine.
 
 In contrast to several existing solution the focus here is on a strict separation of concerns. This keeps the images small and focused on exactly one task. Therefore there is no X Window client application installed in this image.
 
-More details can be found [here](https://github.com/suchja/x11server/blob/master/Story.md).
+###Tags
+This image is provided to you in different versions. You can pull those versions from docker hub by specifying the appropriate tag:
+
+- `suchja/x11client:latest` - Based on a `debian:jessie` image xauth package and configuration for a secure connetion to a container running the `suchja/x11server` is provided.  **Docker images size: around 140MB**
+- `suchja/x11client:ubuntu` - Based on a `ubuntu:14.04` image xauth package and configuration for a secure connetion to a container running the `suchja/x11server` is provided.  **Docker images size: around 190MB**
+
+###Provided core packages
+This image provides the following core packages in addition to the ones contained in the parent image(s):
+
+- [Xauth](http://www.x.org/archive/X11R6.7.0/doc/xauth.1.html) - Required to use Magic-Mit-Cookie provided by X11 server for secure connection between X11 client and server.
+
+###Docker image structure
+I'm a big fan of the *separation of concerns (SoC)* principle. Therefore I try to create Dockerfiles with mainly one responsibility. Thus it happens that an image is using a base image, which is using another base image, ... Here you see all the base images used for this image:
+
+>[ubuntu:14.04](https://github.com/tianon/docker-brew-ubuntu-core/blob/7fef77c821d7f806373c04675358ac6179eaeaf3/trusty/Dockerfile) The base ubuntu 14.04 (aka Trusty) image from docker library, when using `suchja/x11client:ubuntu`
+>[debian:jessie](https://github.com/tianon/docker-brew-debian/blob/188b27233cedf32048ee12378e8f8c6fc0fc0cb4/jessie/Dockerfile) The base debian jessie image from docker library, when using `suchja/x11client:latest`
+>>[suchja/x11client](https://registry.hub.docker.com/u/suchja/x11client/dockerfile/) This image
 
 ##Usage
 Use this image in your Dockerfile's `FROM` statement, if you like to create an image running an xclient application like Wine or Firefox.
 
-Even though this image is intended as base image, you can run a container from it. Assuming you already started an x11server container like so:
+Even though this image is intended as base image, you can run a container from it. Assuming you already started an x11server container like this:
 
 `docker run -d --name display -e VNC_PASSWORD=newPW -p 5900:5900 suchja/x11server`
 
@@ -30,7 +48,7 @@ When starting a container from this x11client image, the `/entrypoint.sh` script
 If you use x11client as a base image and like to create and use another user than xclient, you should run the `/entrypoint.sh` script again as the newly created user.
 
 ##Maintenance
-The image is build on Docker hub with [Automated builds](http://docs.docker.com/docker-hub/builds/). There is no dedicated maintenance schedule for this image. It is relying on packages from `debian:jessie` and thus I do not assume to update it frequently.
+The image is build on Docker hub with [Automated builds](http://docs.docker.com/docker-hub/builds/). There is no dedicated maintenance schedule for this image. It is relying on packages from `debian:jessie` / `ubuntu:14.04` and thus I do not assume to update it frequently.
 
 In case you have any issues, you are invited to create a pull request or an issue on the related [github repository](https://github.com/suchja/x11client).
 
