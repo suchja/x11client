@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM ubuntu:14.04
 MAINTAINER Jan Suchotzki <jan@suchotzki.de>
 
 # first create user and group for all the X Window stuff
