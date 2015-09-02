@@ -8,13 +8,13 @@ In contrast to several existing solution the focus here is on a strict separatio
 ### Tags
 This image is provided to you in different versions. You can pull those versions from docker hub by specifying the appropriate tag:
 
-- `suchja/x11client:latest` - Based on a `debian:jessie` image xauth package and configuration for a secure connetion to a container running the `suchja/x11server` is provided.  **Docker images size: around 140MB**
-- `suchja/x11client:ubuntu` - Based on a `ubuntu:14.04` image xauth package and configuration for a secure connetion to a container running the `suchja/x11server` is provided.  **Docker images size: around 190MB**
+-	`suchja/x11client:latest` - Based on a `debian:jessie` image xauth package and configuration for a secure connetion to a container running the `suchja/x11server` is provided.  **Docker images size: around 140MB**
+-	`suchja/x11client:ubuntu` - Based on a `ubuntu:14.04` image xauth package and configuration for a secure connetion to a container running the `suchja/x11server` is provided.  **Docker images size: around 190MB**
 
 ### Provided core packages
 This image provides the following core packages in addition to the ones contained in the parent image(s):
 
-- [Xauth](http://www.x.org/archive/X11R6.7.0/doc/xauth.1.html) - Required to use Magic-Mit-Cookie provided by X11 server for secure connection between X11 client and server.
+-	[Xauth](http://www.x.org/archive/X11R6.7.0/doc/xauth.1.html), Required to use Magic-Mit-Cookie provided by X11 server for secure connection between X11 client and server.
 
 ### Docker image structure
 I'm a big fan of the *separation of concerns (SoC)* principle. Therefore I try to create Dockerfiles with mainly one responsibility. Thus it happens that an image is using a base image, which is using another base image, ... Here you see all the base images used for this image:
