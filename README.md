@@ -14,7 +14,7 @@ This image is provided to you in different versions. You can pull those versions
 ### Provided core packages
 This image provides the following core packages in addition to the ones contained in the parent image(s):
 
--	[Xauth](http://www.x.org/archive/X11R6.7.0/doc/xauth.1.html), Required to use Magic-Mit-Cookie provided by X11 server for secure connection between X11 client and server.
+-	`Xauth` - Required to use Magic-Mit-Cookie provided by X11 server for secure connection between X11 client and server. For details see [here](http://www.x.org/archive/X11R6.7.0/doc/xauth.1.html).
 
 ### Docker image structure
 I'm a big fan of the *separation of concerns (SoC)* principle. Therefore I try to create Dockerfiles with mainly one responsibility. Thus it happens that an image is using a base image, which is using another base image, ... Here you see all the base images used for this image:
