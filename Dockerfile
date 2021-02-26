@@ -1,6 +1,8 @@
 FROM ubuntu:20.04
 MAINTAINER TheBotlyNoob <thebotlynoob@gmail.com>
 
+USER root
+
 # first create user and group for all the X Window stuff
 # required to do this first so we have consistent uid/gid between server and client container
 RUN addgroup --system xusers \
@@ -14,7 +16,7 @@ RUN addgroup --system xusers \
 			xclient
 
 # Install packages required for connecting against X Server
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN o apt-get update && apt-get install -y --no-install-recommends \
 				xauth \
 		&& rm -rf /var/lib/apt/lists/*
 
