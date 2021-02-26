@@ -1,5 +1,5 @@
-FROM debian:jessie
-MAINTAINER Jan Suchotzki <jan@suchotzki.de>
+FROM ubuntu:20.04
+MAINTAINER TheBotlyNoob <thebotlynoob@gmail.com>
 
 # first create user and group for all the X Window stuff
 # required to do this first so we have consistent uid/gid between server and client container
