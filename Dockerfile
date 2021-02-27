@@ -13,6 +13,9 @@ RUN addgroup --system xusers \
 			--quiet \
 			xclient
 
+# Let xusers run sudo without password
+RUN echo "%xusers  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 # Install packages required for connecting against X Server
 RUN apt-get update && apt-get install -y --no-install-recommends \
 				xauth \
